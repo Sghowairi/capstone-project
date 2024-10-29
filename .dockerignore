@@ -1,0 +1,23 @@
+
+# Ignore logs
+logs
+*.log
+
+# Ignore temporary files
+tmp
+*.tmp
+
+# Ignore build directories
+dist
+build
+
+# Ignore Dockerfile and .dockerignore itself
+.dockerignore
+
+# Ignore version control directories
+.git
+.gitignore
+.github
+# Ignore 
+README.md
+screenshots

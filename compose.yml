@@ -1,0 +1,69 @@
+networks:
+  app-network:
+    # driver: bridge
+
+services:
+
+  db:
+   image: mysql
+   environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+      MYSQL_HOST: db
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+   volumes:
+      - DB:/var/lib/mysql
+
+   ports:
+      - 3306:3306
+   networks:
+    app-network:
+      aliases:
+        - db
+   healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+
+
+  redis:
+   image: redis
+   ports:
+      - 6379:6379
+   networks:
+      app-network:
+        aliases:
+          - redis
+   healthcheck:
+      test: ["CMD","redis-cli", "ping"]
+      timeout: 5s
+      retries: 5
+      interval: 10s
+
+  app:
+   build: .
+   environment:
+      # FLASK_APP: app.py
+      # FLASK_ENV: development
+      DB_HOST: db
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: mydatabase
+      REDIS_HOST: redis
+   ports:
+      - 80:5000
+   networks:
+      app-network:
+        aliases:
+          - app
+
+   depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+   DB:
