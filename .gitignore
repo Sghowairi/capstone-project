@@ -1,0 +1,2 @@
+#if: github.event_name == 'push' && github.workflow.run_number.1 
+#if: github.event_name == 'push' && github.workflow.run_number.6 = ${{success()}}
