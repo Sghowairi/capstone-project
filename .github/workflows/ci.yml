@@ -49,4 +49,4 @@ jobs:
       run: docker build -t flask .
 
     - name: Run tests
-      run: docker run --rm flask go test ./...
+      run: docker run --rm flask pytest
