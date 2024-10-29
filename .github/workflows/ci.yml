@@ -29,7 +29,7 @@ jobs:
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/flask:latest .
 
     - name: Run tests
-      run: docker run --rm ${{ secrets.DOCKER_USERNAME }}/flask:latest go test ./...
+      run: docker run --rm ${{ secrets.DOCKER_USERNAME }}/flask:latest pytest
 
     - name: Push Docker image
       if: github.event_name == 'push'
