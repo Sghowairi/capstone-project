@@ -44,14 +44,13 @@ services:
 
   app:
    build: .
-   environment:
-      # FLASK_APP: app.py
-      # FLASK_ENV: development
-      DB_HOST: db
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: mydatabase
-      REDIS_HOST: redis
+   env_file: .env
+  #  environment:
+  #     DB_HOST: db
+  #     DB_USER: user
+  #     DB_PASSWORD: password
+  #     DB_NAME: mydatabase
+  #     REDIS_HOST: redis
    ports:
       - 80:5000
    networks:
