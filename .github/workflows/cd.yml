@@ -25,7 +25,9 @@ jobs:
       run: docker pull ${{ secrets.DOCKER_USERNAME }}/flask:latest
     
     - name: Copy key file
-      run: echo "${{secrets.SSH_KEY}}" > key.pem
+      env: 
+        SSH_KEY: ${{secrets.SSH_KEY}}
+      run: echo "$SSH_KEY" > key.pem
 
     - name: Deploy Docker container
       run: |
